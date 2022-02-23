@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Mentee;
+use App\Models\Mentor;
 use Validator;
 
 class MenteeController extends Controller
@@ -21,22 +23,41 @@ class MenteeController extends Controller
         $user_id = auth()->user()->id;
         
         if (!$validator->fails()){
-
+            
             $data=$request->all();
 
-            $category = Mentee::create([
-                'user_id' => $user_id,
-                'industry' => $data['industry'],
-                'profession' => $data['profession'],
-                'experience' => $data['experience'],
-                'available' => $data['available'],
-                'time_available' => $data['time_available'],
-            ]);
+            $mentor = Mentor::where('profession', $data['profession'])->inRandomOrder()
+            ->limit(1)->first();
 
-            if($category) {
-                return response("Match successfully made", 201);
+            $mentee_exist = Mentee::where('id', $user_id)->exists();
+
+            if(!$mentee_exist) {
+                if($mentor) {  
+
+                    $mentor_id = $mentor->id;
+
+                    $category = Mentee::create([
+                        'user_id' => $user_id,
+                        'industry' => $data['industry'],
+                        'profession' => $data['profession'],
+                        'experience' => $data['experience'],
+                        'available' => $data['available'],
+                        'time_available' => $data['time_available'],
+                        'mentor' => $mentor_id
+                    ]);
+
+                    $affected = User::where('id', $user_id)->update(['status' => 2]);
+
+                    if($category) {
+                        return response("Match successfully made", 201);
+                    } else {
+                        return response("Could not match", 311);
+                    }
+                } else {
+                    return response("No mentor available", 311);
+                }
             } else {
-                return response("Could not match", 201);
+                return response("You are already a mentee", 311);
             }
 
         }else{

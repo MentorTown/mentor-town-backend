@@ -82,7 +82,7 @@ class AuthController extends Controller
         return response($response, 201);
     }else{
         $error = $validator->errors();
-        return response('$error', 311);
+        return response($error, 311);
     }
     
     }
@@ -93,6 +93,12 @@ class AuthController extends Controller
         return [
             'message' => 'Logged out'
         ];
+    }
+
+    public function status() {
+        $status = auth()->user()->status;
+
+        return response($status, 201);
     }
 
     

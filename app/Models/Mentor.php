@@ -16,5 +16,6 @@ class Mentor extends Model
         'interest',
         'available',
         'time_available',
+        'mentee',
     ];
 }

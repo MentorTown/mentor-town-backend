@@ -21,6 +21,7 @@ class CreateMenteesTable extends Migration
             $table->string('experience');
             $table->string('available');
             $table->string('time_available');
+            $table->string('mentor');
             $table->timestamps();
         });
     }

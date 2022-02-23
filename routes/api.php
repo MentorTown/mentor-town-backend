@@ -28,6 +28,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
 
+    Route::get("status", [AuthController::class,'status']);
+
     Route::post("mentee/match", [MenteeController::class,'create']);
     Route::post("mentor/match", [MentorController::class,'create']);
 
