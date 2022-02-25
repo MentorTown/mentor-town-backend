@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Mentee;
 use App\Models\Mentor;
 use Validator;
+use DB;
 
 class MenteeController extends Controller
 {
@@ -74,7 +75,13 @@ class MenteeController extends Controller
         $mentee = Mentee::where('user_id', $user_id)->first();
         $mentor_id = $mentee->mentor;
 
-        $mentor = Mentor::where('id', $mentor_id)->first();
+        $mentor = User::where('id', $mentor_id)->first();
+        $mentor_name = $mentor->name;
+
+        $mentor = DB::table('mentors')
+        ->join('users', 'mentors.user_id', '=', 'users.id')->first();
+
+        dd($mentor);
         
         return response($mentor, 201);
     }
