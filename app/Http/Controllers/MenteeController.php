@@ -67,4 +67,15 @@ class MenteeController extends Controller
 
         }
     }
+
+    public function getMentor() {
+        $user_id = auth()->user()->id;
+
+        $mentee = Mentee::where('user_id', $user_id)->first();
+        $mentor_id = $mentee->mentor;
+
+        $mentor = Mentor::where('id', $mentor_id)->first();
+        
+        return response($mentor, 201);
+    }
 }

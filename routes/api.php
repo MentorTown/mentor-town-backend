@@ -33,6 +33,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("mentee/match", [MenteeController::class,'create']);
     Route::post("mentor/match", [MentorController::class,'create']);
 
+    Route::get("matched-mentor", [MenteeController::class,'getMentor']);
+    Route::get("matched-mentee", [MentorController::class,'getMentee']);
+
     Route::get("logout", [AuthController::class,'logout']);
     
 });

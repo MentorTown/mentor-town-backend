@@ -16,5 +16,6 @@ class Mentee extends Model
         'experience',
         'available',
         'time_available',
+        'mentor',
     ];
 }

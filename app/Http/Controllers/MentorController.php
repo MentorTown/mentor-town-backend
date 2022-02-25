@@ -67,4 +67,12 @@ class MentorController extends Controller
 
         }
     }
+
+    public function getMentee() {
+        $user_id = auth()->user()->id;
+        
+        $mentee = Mentee::where('mentor', $user_id)->get();
+        
+        return response($mentee, 201);
+    }
 }
