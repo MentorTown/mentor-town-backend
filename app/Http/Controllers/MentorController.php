@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Mentor;
 use App\Models\Mentee;
 use Validator;
+use DB;
 
 class MentorController extends Controller
 {
