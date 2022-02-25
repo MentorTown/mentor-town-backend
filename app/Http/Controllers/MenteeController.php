@@ -35,7 +35,7 @@ class MenteeController extends Controller
             if(!$mentee_exist) {
                 if($mentor) {  
 
-                    $mentor_id = $mentor->id;
+                    $mentor_id = $mentor->user_id;
 
                     $category = Mentee::create([
                         'user_id' => $user_id,
