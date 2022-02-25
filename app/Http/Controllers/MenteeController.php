@@ -81,7 +81,7 @@ class MenteeController extends Controller
         $mentor = DB::table('mentors')
         ->join('users', 'mentors.user_id', '=', 'users.id')->first();
 
-        dd($mentor);
+        $mentor = json_encode($mentor);
         
         return response($mentor, 201);
     }
