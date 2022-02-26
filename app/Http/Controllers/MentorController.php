@@ -73,7 +73,7 @@ class MentorController extends Controller
         $user_id = auth()->user()->id;
 
         $mentee = DB::table('mentees')
-        ->join('users', 'mentees.user_id', '=', 'users.id')->get();
+        ->join('users', 'mentees.user_id', '=', 'users.id')->where('mentor', $user_id)->get();
         
         return response($mentee, 201);
     }
